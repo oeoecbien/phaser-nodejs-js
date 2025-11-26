@@ -1,0 +1,37 @@
+a. Rendre le fichier «Style2.css» non lisible, non modifiable, 
+et non exécutable par toute autre personne que vous, 
+et non modifiable et non exécutable par vous :
+
+	chmod 400 Style2.css
+
+4 : permet la lecture par le propriétaire (vous).
+0 : ne donne aucun droit (ni lecture, ni écriture, ni exécution) aux autres utilisateurs.
+Cela signifie que seul le propriétaire (vous) peut lire le fichier, 
+mais ni vous ni d'autres utilisateurs ne peuvent le modifier ou l'exécuter.
+
+b. Modifier les permissions d'accès au fichier «Style1.css» pour son propriétaire, 
+en lui attribuant uniquement les droits de lecture et d’écriture :
+
+	chmod 600 Style1.css
+
+6 : permet la lecture et l’écriture par le propriétaire.
+0 : ne donne aucun droit aux autres utilisateurs.
+Cela limite les droits d'accès au propriétaire, lui permettant seulement de lire et écrire.
+
+c. Ajouter le droit d’exécution au propriétaire du fichier «Script.sh» 
+sans changer les droits des autres utilisateurs :
+
+	chmod u+x Script.sh
+
+u+x : ajoute le droit d'exécution (x) uniquement pour le propriétaire (u), 
+sans affecter les autres droits (lecture, écriture, exécution) des autres utilisateurs.
+
+• chmod u+x Style2.css : donne la possibilité d'executer pour The file owner.
+• chmod +x Style2.css : donne la possibilité d'executer pour tout le monde.
+• chmod o-rwx Style2.css : enlève tout les droits pour les autres : o.
+• chmod u-w Style2.css : enlève la possibilité de modifier pour le file owner.
+
+u - The file owner.
+g - The users who are members of the group.
+o - All other users.
+a - All users, identical to ugo.

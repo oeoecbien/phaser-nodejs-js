@@ -1,0 +1,106 @@
+--------------------------------------
+           ANTISÈCHE TP
+         Architecture Réseaux
+--------------------------------------
+
+1. Commandes UNIX de base
+--------------------------
+- ls                  : Permet de lister le contenu d’un répertoire pour vérifier les fichiers et dossiers présents.
+    - ls -l           : Affiche des informations détaillées (permissions, propriétaire, taille) sur chaque élément.
+    - ls -a           : Affiche aussi les fichiers cachés, qui commencent par un point (.), utile pour voir les fichiers de configuration.
+
+- mkdir nom_dossier   : Crée un nouveau répertoire pour organiser des fichiers.
+- cd nom_dossier      : Permet de naviguer dans un répertoire spécifique.
+- pwd                 : Affiche le chemin du répertoire actuel, utile pour se repérer dans l’arborescence.
+- rm fichier          : Supprime un fichier ; attention, cette action est irréversible.
+
+- chmod               : Change les permissions d’un fichier ou répertoire pour gérer les accès.
+    - chmod 750 fichier       : Définit les permissions : propriétaire (lecture, écriture, exécution), groupe (lecture, exécution), autres (aucun accès).
+    - Exemples chmod :
+        - chmod u+x fichier   : Ajoute la permission d’exécution pour le propriétaire.
+        - chmod o-rwx fichier : Retire toutes les permissions pour les autres utilisateurs, limitant l’accès.
+
+2. Connexion SSH et Transferts
+------------------------------
+- Connexion SSH       : ssh login@IP_du_serveur permet de se connecter à distance à un serveur, sécurisé par cryptage.
+- Transfert de fichier : scp chemin_local login@IP:/chemin_distant transfère un fichier depuis votre machine vers un serveur distant, en passant par une connexion SSH sécurisée.
+
+3. Apache - Commandes de base
+-----------------------------
+- Démarrer            : apache2 -k start ou systemctl start apache2 pour lancer le serveur Apache.
+- Arrêter             : apache2 -k stop pour arrêter le serveur.
+- Redémarrer          : apache2 -k restart pour redémarrer le serveur après des changements de configuration.
+- Vérifier syntaxe    : /usr/sbin/apache2ctl -t permet de vérifier la validité de la configuration Apache avant de le redémarrer.
+
+4. Nginx - Commandes de base
+----------------------------
+- Installation        : sudo apt install nginx pour installer le serveur web Nginx.
+- Démarrage/Arrêt     : systemctl start nginx / systemctl stop nginx pour contrôler le statut du serveur.
+- Vérifier version    : nginx -v pour afficher la version de Nginx installée, utile pour vérifier les mises à jour.
+
+5. Node.js et Socket.io (Serveur de Chat)
+-----------------------------------------
+- Démarrer un serveur Node.js :
+    - const express = require('express'); importe le module Express pour créer facilement des routes et gérer les requêtes HTTP.
+    - const app = express(); initialise l’application avec Express.
+    - const http = require('http').createServer(app); crée un serveur HTTP en utilisant Express comme gestionnaire de requêtes.
+    - const io = require('socket.io')(http); initialise Socket.io pour ajouter des fonctionnalités en temps réel (comme le chat) sur le serveur.
+    - http.listen(3000, () => console.log("Server running on port 3000")); démarre le serveur sur le port 3000 pour écouter les connexions.
+
+- Socket.io - Connexion client :
+    - io.on('connection', socket => { ... }); détecte la connexion d’un utilisateur et lance des actions spécifiques lorsque quelqu’un se connecte au chat.
+    - socket.on('disconnect', () => console.log('User disconnected')); permet de suivre les connexions et déconnexions pour savoir quand un utilisateur quitte le chat.
+
+- Réception et émission de messages :
+    - socket.on('chat message', (msg) => { ... }); écoute les messages envoyés par les clients. Chaque message reçu est traité ici.
+    - io.emit('chat message', msg); envoie le message reçu à tous les utilisateurs connectés, ce qui permet une diffusion en temps réel.
+
+6. Scripting Bash - Exemples utiles
+-----------------------------------
+- Afficher l’heure actuelle :
+    date +"Il est %H heures %M minutes et %S secondes" affiche l'heure dans un format personnalisé.
+
+- Script de Boucle - Compte à rebours :
+    for i in $(seq $1 -1 1); do ... permet de créer un compte à rebours, utile dans les scripts automatisés.
+
+- Condition IF/ELSE :
+    if [ -f fichier.txt ]; then ... vérifie si un fichier existe et exécute des actions en fonction du résultat.
+
+- Boucle WHILE avec compteur :
+    compteur=1 while [ $compteur -le 5 ]; do ... répète une action tant que la condition est vraie.
+
+- Manipulation de Fichiers :
+    - Créer un fichier       : touch nouveau_fichier.txt pour créer un nouveau fichier vide.
+    - Afficher contenu       : cat fichier.txt pour afficher le contenu d'un fichier dans le terminal.
+    - Rechercher un mot      : grep "mot" fichier.txt pour trouver des occurrences d’un mot dans un fichier.
+
+7. Surveillance Système et Espace Disque
+----------------------------------------
+- df / du : Surveiller l’espace disque pour prévenir les problèmes de stockage.
+    - df -h          : Affiche l’espace disque utilisé et libre en unités lisibles.
+    - du -sh dossier : Donne la taille totale d’un répertoire, utile pour évaluer l’espace occupé.
+
+8. AutoIt - Commandes Utiles
+----------------------------
+- MsgBox(0, "Titre", "Message")           : Affiche une boîte de dialogue avec un message pour l’utilisateur.
+- Run("chemin_exe")                       : Lance un programme ou un fichier exécutable spécifié.
+- WinWaitActive("Titre de la fenêtre")    : Attend qu’une fenêtre spécifique devienne active, utile pour l'automatisation.
+- Send("texte")                           : Envoie du texte (ou des touches) à la fenêtre active, simulant une saisie clavier.
+- FileCopy("source", "destination")       : Copie un fichier ou un dossier vers un emplacement spécifié.
+- FileDelete("chemin_fichier")            : Supprime un fichier, similaire à rm en Unix.
+- MouseClick("bouton", x, y)              : Simule un clic de souris à des coordonnées spécifiques, pratique pour contrôler l’interface utilisateur.
+- Sleep(temps_ms)                         : Pause l'exécution du script pour un temps donné en millisecondes.
+- ControlClick("Titre fenêtre", "", "ID") : Clic sur un contrôle spécifique d'une fenêtre par son ID, utile si le bouton n'a pas de position fixe.
+
+9. Résumé des Commandes Clés
+----------------------------
+- Lister              : ls, ls -l, ls -a pour afficher le contenu des répertoires.
+- Naviguer            : cd chemin, pwd pour se déplacer et s’orienter dans les répertoires.
+- Créer/Supprimer     : mkdir, rm, touch pour créer ou supprimer des fichiers et répertoires.
+- Gestion Permissions : chmod, chmod u+x fichier pour gérer les autorisations d'accès aux fichiers.
+- Scripts Bash        : Boucles for, while, conditions if/else, affichage echo pour l’automatisation des tâches répétitives.
+- Commandes AutoIt    : MsgBox, Run, WinWaitActive, Send pour automatiser des tâches Windows de base.
+
+--------------------------------------
+               FIN
+--------------------------------------

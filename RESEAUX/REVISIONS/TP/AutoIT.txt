@@ -1,0 +1,129 @@
+--------------------------------------
+           ANTISÈCHE TP
+          SCRIPTING AUTOIT
+--------------------------------------
+
+1. Structure de Base en AutoIt
+------------------------------
+- Tout script AutoIt commence par :
+    #include <AutoItConstants.au3> ; Inclut des constantes utiles
+
+- Commentaires : Utiliser ; pour écrire des commentaires
+
+2. Variables
+------------
+- Déclaration : Pas de déclaration explicite nécessaire
+    Exemple : $maVariable = "Bonjour"
+
+- Types de variables :
+    - Chiffres      : $nombre = 5
+    - Chaînes       : $texte = "Hello"
+    - Booléens      : $vrai = True, $faux = False
+    - Tableaux      : $tab[3] = [1, 2, 3]
+
+- Conventions de nommage : Préfixer par $ (ex. $maVariable)
+
+3. Opérations et Conditions
+---------------------------
+- Opérateurs :
+    - Mathématiques : +, -, *, /
+    - Comparaison   : =, <> (différent), <, >, <=, >=
+    - Logiques      : And, Or, Not
+
+- Conditions If/Else :
+    If $variable = 1 Then
+        ; Instructions si condition vraie
+    Else
+        ; Instructions si condition fausse
+    EndIf
+
+4. Boucles
+----------
+- Boucle While :
+    $i = 0
+    While $i < 10
+        ; Instructions
+        $i += 1
+    WEnd
+
+- Boucle For :
+    For $i = 1 To 5
+        ; Instructions
+    Next
+
+5. Fonctions Utiles en AutoIt
+-----------------------------
+- MsgBox : Affiche une boîte de dialogue
+    - Syntaxe : MsgBox(0, "Titre", "Message")
+
+- InputBox : Demande une saisie utilisateur
+    - Syntaxe : $resultat = InputBox("Titre", "Entrez une valeur")
+
+- Sleep : Met le script en pause pour un certain temps (ms)
+    - Syntaxe : Sleep(1000) ; Pause d’1 seconde
+
+6. Interaction avec Fenêtres
+----------------------------
+- WinWaitActive : Attendre qu'une fenêtre devienne active
+    - Syntaxe : WinWaitActive("Titre de la fenêtre")
+
+- Send : Envoyer du texte ou des touches clavier à la fenêtre active
+    - Syntaxe : Send("Texte ou {ENTREE}")
+
+- MouseClick : Simuler un clic de souris
+    - Syntaxe : MouseClick("left", x, y, nombre_clics)
+
+7. Manipulation de Fichiers
+---------------------------
+- FileOpen : Ouvrir un fichier
+    - Syntaxe : $fichier = FileOpen("monfichier.txt", 1) ; 1 pour écriture
+
+- FileWriteLine : Écrire une ligne dans un fichier
+    - Syntaxe : FileWriteLine($fichier, "Texte")
+
+- FileClose : Fermer le fichier
+    - Syntaxe : FileClose($fichier)
+
+8. Gestion de Fenêtres Graphiques (GUI)
+---------------------------------------
+- Création d’une fenêtre GUI :
+    - GUICreate("Titre", largeur, hauteur)
+
+- Ajouter des éléments :
+    - GUISetControl : Créer des éléments comme boutons, cases à cocher, etc.
+        - Exemple : GUICtrlCreateButton("OK", x, y, largeur, hauteur)
+
+- Lancer la GUI et écouter les événements :
+    While 1
+        $msg = GUIGetMsg()
+        ; Vérifier l'action, ex: si $msg = $buttonID pour un clic sur un bouton
+    WEnd
+
+9. Exemples de Scripts AutoIt
+-----------------------------
+- Script de Calcul Mental :
+    ; Affiche une opération et demande la réponse
+    $nombre1 = Random(1, 10, 1)
+    $nombre2 = Random(1, 10, 1)
+    $operation = InputBox("Calcul", "Combien fait " & $nombre1 & " + " & $nombre2 & " ?")
+    If $operation = $nombre1 + $nombre2 Then
+        MsgBox(0, "Bravo", "Bonne réponse !")
+    Else
+        MsgBox(0, "Dommage", "Mauvaise réponse...")
+    EndIf
+
+- Script de Déplacement (Animation) :
+    ; Déplace un carré dans une interface GUI
+    $fenetre = GUICreate("Déplacement", 300, 300)
+    $carre = GUICtrlCreateGraphic(50, 50, 50, 50)
+    GUISetState(@SW_SHOW)
+    While 1
+        $deplacement = GUIGetMsg()
+        If $deplacement = $gauche Then
+            GUICtrlSetPos($carre, GUICtrlRead($carre, 1) - 5, GUICtrlRead($carre, 2))
+        EndIf
+    WEnd
+
+--------------------------------------
+             FIN
+--------------------------------------

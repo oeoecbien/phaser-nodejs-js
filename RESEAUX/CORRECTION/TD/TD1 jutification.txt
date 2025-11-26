@@ -1,0 +1,32 @@
+Espace d'adressage :
+
+Le tableau que tu as rempli dans l'exercice 1 explore le subnetting en fonction du nombre de bits alloués à l'identifiant du sous-réseau. 
+La justification des réponses dépend de la formule :
+Nbre de subnets = 2^nbre de bits de subnet−2
+
+Le "-2" est dû aux recommandations pour éviter d'utiliser les sous-réseaux ayant des adresses spéciales (telles que l'adresse de réseau et de broadcast).
+Ensuite, pour le nombre de stations disponibles par sous-réseau, on utilise la formule :
+Stations par subnet = 2^nbre de bits restants pour les hôtes-2
+
+Ici encore, le "-2" est nécessaire pour réserver l'adresse réseau et l'adresse de diffusion (broadcast).
+Enfin, les adresses "perdues" correspondent aux adresses qui ne peuvent plus être attribuées à une station à cause du subnetting. 
+Ces adresses sont celles qui étaient disponibles avant le subnetting mais qui sont maintenant dédiées à la structure du réseau.
+Masques de sous-réseaux :
+
+Cet exercice consiste à déterminer si une destination est directement accessible à partir des interfaces d'un routeur. Le processus consiste à appliquer 
+le masque de sous-réseau à l'adresse de destination pour vérifier si cette adresse appartient à un sous-réseau directement relié au routeur.
+Exemple : pour l'adresse 139.124.5.133, elle est accessible via l'interface 139.124.5.250 car en appliquant 
+le masque 255.255.255.0 à cette adresse, on obtient bien le réseau 139.124.5.0. 
+Si l'adresse ne correspond à aucun des réseaux après application des masques, alors elle n'est pas directement accessible.
+
+Routage IP :
+Pour les tables de routage, il est important de compléter les routes selon les réseaux auxquels chaque station ou routeur est connecté, 
+en utilisant des routes par défaut lorsque cela est pertinent.
+Par exemple, pour la station 112.3.45.67, la route par défaut est 0.0.0.0 qui permet d'accéder à tout ce qui n'est pas explicitement 
+défini dans la table de routage. Chaque station doit également être configurée 
+pour pouvoir accéder aux réseaux spécifiques auxquels elle est directement reliée ou à travers une passerelle (gateway).
+
+Tables de routage avancées :
+Lorsqu'il s'agit de configurer les tables de routage des routeurs, il est crucial d'assurer la connectivité entre tous les sous-réseaux sans créer de boucles de routage, 
+d'où l'importance des routes par défaut et des réseaux fédérateurs (comme le réseau 112.0.0.0 dans ce cas).
+Un routeur dans un réseau fédérateur peut avoir des connaissances sur tous les réseaux et utiliser des routes par défaut pour tout ce qui sort de son réseau fédérateur.

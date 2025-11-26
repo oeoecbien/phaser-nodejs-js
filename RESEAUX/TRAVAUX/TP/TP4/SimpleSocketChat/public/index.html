@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Socket Chat</title>
+  <link rel="stylesheet" href="styleChat.css">
+</head>
+<body>
+  <div id="login">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input id="username" autocomplete="off" placeholder="Enter your name"/><button>Join</button>
+    </form>
+  </div>
+  
+  <div id="chat" style="display:none;">
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    var loginForm = document.getElementById('loginForm');
+    var usernameInput = document.getElementById('username');
+    var chatDiv = document.getElementById('chat');
+    var loginDiv = document.getElementById('login');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    var messages = document.getElementById('messages');
+    var username = '';
+
+    // Gérer la connexion
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (usernameInput.value) {
+        username = usernameInput.value;
+        socket.emit('user joined', username);  // Envoyer le pseudo au serveur
+        loginDiv.style.display = 'none';
+        chatDiv.style.display = 'block';
+      }
+    });
+
+    // Envoyer des messages
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (input.value) {
+        var item = document.createElement('li');
+        item.textContent = 'You: ' + input.value;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+        
+        socket.emit('chat message', { username: username, message: input.value });
+        input.value = '';
+      }
+    });
+
+    // Réception des messages
+    socket.on('chat message', function(data) {
+      var item = document.createElement('li');
+      item.textContent = data.username + ': ' + data.message;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    // Notifications d'utilisateurs qui se connectent
+    socket.on('user joined', function(user) {
+      var item = document.createElement('li');
+      item.textContent = user + ' joined the chat';
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    // Notifications d'utilisateurs qui se déconnectent
+    socket.on('user left', function(user) {
+      var item = document.createElement('li');
+      item.textContent = user + ' left the chat';
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+  </script>
+</body>
+</html>

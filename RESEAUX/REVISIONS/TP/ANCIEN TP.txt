@@ -1,0 +1,68 @@
+- TP2 : Configuration de serveur Apache
+	- Installation et configuration IP des machines
+		- Étape : Configurer les adresses IP statiques.
+		- Pourquoi : Une configuration IP statique garantit une communication stable entre le serveur 
+		et le client en réseau local, évitant les changements d’adresses qui pourraient perturber la connexion.
+		- Étape : Vérifier la connexion IP entre le serveur et le client en utilisant la commande ping.
+		- Pourquoi : Cela permet de s’assurer que les machines peuvent se communiquer 
+		avant d'installer le serveur web, ce qui est essentiel pour les tests ultérieurs.
+
+	- Mise en place du serveur Apache
+		- Étape : Installer Apache et vérifier s’il est actif avec les commandes 
+		ps –ef | grep httpd ou systemctl status httpd.service.
+		- Pourquoi : La vérification du statut d’Apache est importante pour s’assurer qu’il est bien démarré 
+		et prêt à traiter les requêtes HTTP.
+		- Étape : Configurer le firewall pour autoriser les connexions sur 
+		le port 80 (commande : firewall-cmd --permanent --add-port=80/tcp).
+		- Pourquoi : Le port 80 est utilisé pour les connexions HTTP. 
+		Si le firewall bloque ce port, les clients ne pourront pas accéder au serveur.
+
+	- Création d’un site personnel utilisateur
+		- Étape : Créer un répertoire public_html dans le répertoire personnel de chaque utilisateur, 
+		puis définir les permissions à 755 sur ce répertoire et 644 sur les fichiers.
+		- Pourquoi : Ce répertoire permet à chaque utilisateur de publier son propre site web. 
+		Les permissions assurent que le contenu est accessible publiquement tout en limitant les modifications aux propriétaires.
+
+	- Sécurisation avec fichiers d'authentification
+		- Étape : Créer un fichier .htaccess pour restreindre l’accès à un dossier particulier du site, 
+		en utilisant un fichier d’authentification pour gérer les accès.
+		- Pourquoi : Un fichier .htaccess est une méthode simple pour contrôler l’accès aux fichiers ou 
+		répertoires sensibles, en obligeant les utilisateurs à s’authentifier avant d’accéder au contenu protégé.
+
+	- Création de serveurs virtuels
+		- Étape : Ajouter plusieurs adresses IP virtuelles et 
+		configurer des serveurs virtuels dans le fichier vhost.conf, 
+		en définissant des blocs <VirtualHost> distincts pour chaque site.
+		- Pourquoi : Cela permet d’héberger plusieurs sites web sur le même serveur, 
+		chacun associé à une adresse IP ou à un nom de domaine distinct, 
+		ce qui est courant pour optimiser l’utilisation d’un serveur.
+
+	- Utilisation des modules Apache
+		- Étape : Activer le module mod_status 
+		et ajouter la configuration nécessaire dans le fichier httpd.conf pour accéder aux statistiques du serveur.
+		- Pourquoi : Le module mod_status permet de surveiller les performances du serveur Apache en temps réel, 
+		fournissant des informations utiles pour le dépannage et l’optimisation.
+
+- TP3 : Programmation réseau avec sockets TCP/IP en C#
+	- Programmation en mode connecté (TCP)
+		- Étape : Utiliser les classes TcpListener et TcpClient pour établir une connexion 
+		entre un serveur et un client, et utiliser NetworkStream pour transmettre les données.
+		- Pourquoi : TcpListener et TcpClient facilitent la création d'applications en mode connecté, 
+		permettant une communication fiable entre un client et un serveur grâce au protocole TCP.
+
+	- Programmation du client Windows
+		- Étape : Créer une interface graphique avec deux zones de texte 
+		pour afficher les messages échangés et un bouton pour envoyer des messages.
+		- Pourquoi : Cela permet de tester l’application dans un environnement plus réaliste 
+		où les messages sont saisis et visualisés de manière pratique, simulant une vraie interface utilisateur.
+
+	- Programmation en mode non-connecté (UDP)
+		- Étape : Utiliser les classes Socket et IPEndPoint pour configurer un serveur UDP 
+		qui peut recevoir des messages sans connexion préalable, 
+		et mettre en place un callback asynchrone avec BeginReceiveFrom pour la réception des messages.
+		- Pourquoi : Le mode non-connecté (UDP) est utile pour les applications 
+		où une connexion continue n'est pas nécessaire, comme le chat en ligne. 
+		Les callbacks asynchrones permettent de recevoir des messages en arrière-plan sans bloquer le programme.
+		- Étape : Créer deux clients chat sur la même machine et faire communiquer ces clients en utilisant des ports différents.
+		- Pourquoi : Cela permet de tester la communication UDP en simulant deux utilisateurs différents 
+		sur un même réseau, vérifiant ainsi que l’application gère correctement plusieurs points de communication.

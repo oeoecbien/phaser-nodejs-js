@@ -1,0 +1,20 @@
+Adresse IP : 32 bits
+
+A.B.C.D = 8 bits x 4
+de 0 à 255
+
+A = Partie réseaux
+D = Partie machine
+
+4 classes : A, B, C, D :
+Classe A : 2^24 addresses ip addressables : commence à 0.0.0.0 jusqu'à classe B
+Classe B : 2^16 : commence à 128.0.0.0 jusqu'à classe C
+Classe C : 2^8 : commence à 192.0.0.0 jusqu'à Classe D
+Classe D : 2^4 : commence à 223.0.0.0.
+
+Pb adresse ip classique : beaucoup de demandes d'addresses : trop de places donc gaspillages d'addresses ip
+solution : Adressage CIDR : bits divisable : accompagné par un masque réseau
+
+
+
+
